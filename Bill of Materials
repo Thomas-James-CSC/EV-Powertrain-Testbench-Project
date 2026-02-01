@@ -1,0 +1,21 @@
+Core
+Microcontroller dev board: ESP32 or Arduino
+BLDC motor + hobby ESC (RC-style)
+Battery: 3S–6S lithium pack (or a bench supply for early testing)
+Current sensor: Hall-effect current sensor (easiest + isolated)
+Voltage divider components (resistors) for pack voltage
+Temp sensors: NTC thermistors + resistors (or digital temp sensors)
+RPM sensor: Hall sensor + small magnet or optical interrupter
+SD card module or serial logging to laptop
+
+Safety & wiring
+Inline fuse + spare fuses
+Real switch rated for current (or an XT-style anti-spark connector)
+E‑stop button (kills power)
+Proper connectors (XT60/XT90 style), wire (14–18 AWG depending on current)
+LiPo-safe charging solution + LiPo bag (if using LiPo)
+
+Tools
+Multimeter (required)
+Soldering iron + heat shrink (strongly recommended)
+Wire stripper/crimper
