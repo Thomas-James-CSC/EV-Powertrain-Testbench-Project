@@ -1,0 +1,147 @@
+Week 1 — Build the “EV telemetry core”
+Do
+Set up microcontroller environment
+Read ADC reliably
+Print a clean serial telemetry line at ~10–50 Hz
+Deliverable
+Live telemetry: Vpack, raw ADC, timestamp
+
+Week 2 — Pack voltage measurement (calibrated)
+Do
+Build a voltage divider + ADC input protection
+Calibrate with a multimeter (compute scale + offset)
+Deliverable
+Logged Vpack(t) that matches your multimeter within ~1–2%
+
+Week 3 — Current sensing + power
+Do
+Install current sensor in series with battery feed
+Handle sensor zero-offset (very important)
+Compute P = V * I and energy Wh = ∫ P dt / 3600
+Deliverable
+Live: V, I, P, Wh
+
+Week 4 — Motor spins + safe wiring
+Do
+Wire: battery → fuse → switch → current sensor → ESC → motor
+ESC throttle from microcontroller (servo PWM)
+Add an E-stop that physically kills power
+Deliverable
+Smooth throttle control from 0 → 20 → 50% without brownouts
+
+Week 5 — RPM sensing
+Do
+Add Hall or optical RPM sensor
+Validate pulses-per-revolution (PPR) and filtering
+Deliverable
+RPM(t) logged during throttle ramps
+
+Week 6 — Temperature sensing (battery + ESC)
+Do
+Add 2–3 temperature sensors
+Convert ADC → temperature (even if approximate at first)
+Deliverable
+T_batt(t), T_ESC(t) logged during a 2–3 minute run
+
+Week 7 — “Safety supervisor” logic (EV mindset)
+Do
+Implement firmware states:
+IDLE (safe)
+ARMED (ready)
+RUN
+FAULT
+Fault triggers:
+undervoltage
+overcurrent
+overtemp
+sensor invalid / disconnected
+Fault behavior:
+throttle → 0
+require manual reset
+Deliverable
+Demonstrate a controlled fault (e.g., undervoltage threshold) and safe shutdown
+
+Week 8 — Closed-loop speed control (PID)
+Do
+Implement a speed setpoint mode (RPM target)
+PID adjusts throttle
+Add anti-windup and throttle clamps
+Deliverable
+Step response plot: setpoint from 2000 → 3000 RPM and show settling
+
+Week 9 — Load introduction (simple)
+Pick ONE easy load:
+fan/propeller load (simplest)
+friction load (careful with heat)
+small generator load (motor driving another motor into resistors)
+Deliverable
+Compare power draw at same RPM with and without load
+
+Week 10 — Data logging that doesn’t suck
+Do
+SD card logging or clean CSV over serial
+Timestamp everything
+Log at consistent rate (e.g., 50–100 Hz)
+Deliverable
+A CSV file you can plot in Python/Excel:
+time, V, I, P, Wh, RPM, temps, throttle, state
+
+Week 11 — Battery sag characterization (very EV-real)
+Do
+Run repeatable throttle steps
+Measure voltage sag vs current
+Estimate pack internal resistance: 
+R≈ΔV/ΔI
+Deliverable
+Plot: Vpack vs Ipack (scatter), and estimated resistance
+
+Week 12 — Precharge “concept demo” (simple + instructive)
+Do
+Add a precharge resistor path + procedure (even if manual)
+Show reduced inrush / less connector sparking (if relevant)
+Deliverable
+Documented startup procedure + measured current transient (if you have a scope; if not, document qualitatively)
+
+Week 13 — Optional inertial dynamometer (stretch, high value)
+Do
+Add a known inertia disk
+Run acceleration tests at fixed throttle
+Compute torque and mechanical power from RPM(t)
+Deliverable
+Plot: Torque vs RPM (estimated) and Efficiency-ish vs RPM
+
+Week 14 — “Drive cycle” experiment (system thinking)
+Do
+Create a synthetic drive cycle: ramp RPM, hold, coast, repeat
+Calculate energy used per cycle
+Compare two control strategies:
+open-loop throttle
+closed-loop speed
+Deliverable
+Plot: energy used for cycle A vs cycle B
+
+Week 15 — Packaging + wiring harness + safety finish
+Do
+Put it on a baseplate
+Strain relief on wires
+Guard spinning parts (seriously)
+Label connectors and add a wiring diagram
+Deliverable
+Clean, demo-ready bench unit
+
+Week 16 — Engineering report + demo video
+Deliverable package (portfolio-quality)
+GitHub repo:
+firmware
+wiring diagram
+BOM
+test procedures
+CSV data + plotting scripts
+PDF report (5–12 pages is fine):
+Requirements
+Architecture
+Safety approach
+Calibration method
+Tests + plots
+Failures + fixes
+Next improvements
